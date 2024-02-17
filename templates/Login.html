@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <Style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .Container-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+
+        }
+
+        .form-login {
+            background-color: rgb(255, 255, 255);
+            border: 1px solid;
+            border-width: 3px;
+            border-image: linear-gradient(#845EC2, #D65DB1, #FF6F91, #FF9671, #FFC75F, #F9F871) 4;
+        }
+
+
+        .form-input {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+            height: 320px;
+            width: 320px;
+        }
+
+        input {
+            width: auto;
+            height: 40px;
+            margin-bottom: 20px;
+            border: 2px solid gray;
+            border-radius: 5px;
+        }
+
+        input:focus-visible {
+            border: 2px solid #3786da;
+        }
+
+        input:focus {
+            box-shadow: 0 0 5px #3786da;
+            outline: none;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #2fbb49;
+            border: none;
+            border-radius: 5px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 400ms;
+        }
+
+        button:hover {
+            background: transparent;
+            color: black;
+            border: 2px solid rgb(24, 121, 4);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .Logo {
+            width: 30%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .Container-logo {
+            background-color: #6ed93e;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            height: 100%;
+        }
+    </Style>
+
+    <div class="Container-login">
+        <form action="/Login" method="post" class="form-login">
+            <div class="Container-logo">
+                <img class="Logo" src="/static/img/Logoo.png" alt="">
+            </div>
+            <div class="form-input">
+                <h1>Bienvenido a Blubby</h1>
+                <label for="">Usuario</label>
+                <input type="text" name="user" required>
+                <label for="">Contraseña</label>
+                <input type="password" name="password" required>
+                <button value="Login">Iniciar sesion</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

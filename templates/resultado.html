@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Lista</title>
+</head>
+
+<body>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		th,
+		td {
+			border: 2px solid rgb(77, 77, 77);
+			padding: 12px;
+			text-align: left;
+		}
+
+		td {
+			background-color: #ffffff;
+			color: rgb(74, 74, 74);
+		}
+
+		th {
+			background-color: #1d3d33;
+			color: white;
+		}
+
+		h2 {
+			font-family: Arial, Helvetica, sans-serif;
+			text-align: center;
+			font-size: 24px;
+			color: #1d3d33;
+		}
+
+		.img-error {
+			height: 300px;
+			width: 300px;
+		}
+
+		.Container-img {
+			display: flex;
+			justify-content: center;
+			margin-top: 50px;
+			rotate: -45deg;
+			transform: rotate(45deg);
+			animation: alternate 3s linear infinite identifier;
+		}
+
+		@keyframes identifier {
+			0% {
+				transform: rotate(45deg) scale(1.1);
+			}
+		}
+	</style>
+
+	<h2>Resultados de la búsqueda:</h2>
+	{% if resultados %}
+	<table>
+		<tr class="Encabezado">
+			<th>Nombre</th>
+			<th>Correo</th>
+		</tr>
+		{% for resultado in resultados %}
+		<tr>
+			<td>{{ resultado.Nombre }}</td>
+			<td>{{ resultado.Correo }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% else %}
+	<h2>No se encontro los datos</h2>
+	<div class="Container-img">
+		<img class="img-error" src="/static/img/Error.png" alt="" />
+	</div>
+	{% endif %}
+</body>
+
+</html>
