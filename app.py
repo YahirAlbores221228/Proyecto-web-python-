@@ -9,19 +9,41 @@ app = Flask(__name__)
 
 app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
 
-datos = pd.read_excel("Datos.xlsx")
+datos = pd.read_excel("./Datos.xlsx")
 #usuarios accedidos en login
 usuarios = {
     'yahir': 'yahir',
     'Pedro': 'pedro',
-    'Luis Alfaro': 'Sof'
+    'Luis Alfaro': 'Sof',
+    'Chano': 'Chano@05'
 }
 #filtrar los datos de excel
 def search_nombre(patron):
-    datos[['Nombre', 'Correo']] = datos[['Nombre', 'Correo']].fillna('')
+    datos[['Nombre']] = datos[['Nombre']].fillna('')
     coincidence = datos[datos['Nombre'].str.contains(patron, flags=re.IGNORECASE, regex=True)]
-    return coincidence[['Nombre' , 'Correo']]
+    return coincidence[['Nombre']]
 
+def find_by_email(name, email):
+    if name and not email:
+        datos[['Nombre']] = datos[['Nombre']].fillna('')
+        coincidence = datos[datos['Nombre'].str.contains(name, flags=re.IGNORECASE, regex=True)]
+        return coincidence[['Nombre','Correo']]
+    
+    if email and not name:
+        # Asegura que no haya NaNs que puedan causar errores.
+        datos['Correo'] = datos['Correo'].fillna('')
+        # Filtra solo la columna especifica pero retorna todos los valores de la fila
+        found = datos[datos['Correo'].str.contains(email, flags=re.IGNORECASE, regex=True, na=False)]
+        return found[['Nombre','Correo']]
+    
+    if name and email:
+        datos['Correo'] = datos['Correo'].fillna('')
+        found = datos[
+            (datos['Nombre'].str.contains(name, flags=re.IGNORECASE, regex=True)) & 
+            (datos['Correo'].str.contains(email, flags=re.IGNORECASE, regex=True, na=False))
+            ]
+        return found[['Nombre','Correo']]
+    
 #redireccionar siempre al login como ruta raiz
 @app.route("/")
 def redireccionar():
@@ -55,12 +77,16 @@ def index():
 @app.route('/Lista', methods=['POST'])
 def lista():
     searchnombres = request.form['busqueda']
-    result = search_nombre(searchnombres)
+    email = request.form['email']
+
+    result = find_by_email(searchnombres, email)
+
     if not result.empty:
         resultados = result.to_dict(orient='records')
         return render_template('resultado.html', resultados=resultados)
     else:
         return render_template('resultado.html')
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

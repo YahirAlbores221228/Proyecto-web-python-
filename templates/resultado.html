@@ -69,8 +69,8 @@
 		</tr>
 		{% for resultado in resultados %}
 		<tr>
-			<td>{{ resultado.Nombre }}</td>
-			<td>{{ resultado.Correo }}</td>
+			<td>{{ resultado['Nombre'] }}</td>
+			<td>{{ resultado['Correo'] }}</td>
 		</tr>
 		{% endfor %}
 	</table>
