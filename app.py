@@ -17,13 +17,8 @@ usuarios = {
     'Luis Alfaro': 'Sof',
     'Chano': 'Chano@05'
 }
-#filtrar los datos de excel
-def search_nombre(patron):
-    datos[['Nombre']] = datos[['Nombre']].fillna('')
-    coincidence = datos[datos['Nombre'].str.contains(patron, flags=re.IGNORECASE, regex=True)]
-    return coincidence[['Nombre']]
 
-def find_by_email(name, email):
+def find(name, email):
     if name and not email:
         datos[['Nombre']] = datos[['Nombre']].fillna('')
         coincidence = datos[datos['Nombre'].str.contains(name, flags=re.IGNORECASE, regex=True)]
@@ -79,7 +74,7 @@ def lista():
     searchnombres = request.form['busqueda']
     email = request.form['email']
 
-    result = find_by_email(searchnombres, email)
+    result = find(searchnombres, email)
 
     if not result.empty:
         resultados = result.to_dict(orient='records')
@@ -90,7 +85,3 @@ def lista():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-                
-   
