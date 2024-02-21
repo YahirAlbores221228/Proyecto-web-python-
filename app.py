@@ -78,9 +78,9 @@ def lista():
 
     if not result.empty:
         resultados = result.to_dict(orient='records')
-        return render_template('resultado.html', resultados=resultados)
+        return render_template('Formulario.html', resultados=resultados)
     else:
-        return render_template('resultado.html')
+        return render_template('resultado.html', no_results=True)
     
 
 if __name__ == '__main__':
